@@ -1,0 +1,44 @@
+{
+  "name": "react-native-animated-spinkit",
+  "description": "A pure JavaScript port of SpinKit for React Native.",
+  "version": "0.0.0",
+  "author": "Tien Pham",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "example": "yarn --cwd ./example",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "format": "prettier --write 'src/**/*' 'README.md'"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "yarn format",
+      "yarn lint",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.13",
+    "@types/react-native": "^0.60.23",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.4.3",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.2"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  }
+}
