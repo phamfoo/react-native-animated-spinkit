@@ -23,6 +23,17 @@
       "pre-commit": "lint-staged"
     }
   },
+  "keywords": [
+    "react",
+    "react-native",
+    "spinkit",
+    "expo",
+    "loading"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tienph6m/react-native-animated-spinkit.git"
+  },
   "devDependencies": {
     "@react-native-community/bob": "^0.7.0",
     "@types/react": "^16.9.13",
