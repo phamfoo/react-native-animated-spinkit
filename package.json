@@ -3,12 +3,13 @@
   "description": "A pure JavaScript port of SpinKit for React Native.",
   "version": "0.0.0",
   "author": "Tien Pham",
-  "main": "src/index.ts",
+  "main": "lib/commonjs/index.js",
   "license": "MIT",
   "scripts": {
     "example": "yarn --cwd ./example",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
-    "format": "prettier --write 'src/**/*' 'README.md'"
+    "format": "prettier --write 'src/**/*' 'README.md'",
+    "prepare": "bob build"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -23,6 +24,7 @@
     }
   },
   "devDependencies": {
+    "@react-native-community/bob": "^0.7.0",
     "@types/react": "^16.9.13",
     "@types/react-native": "^0.60.23",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
@@ -40,5 +42,21 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
+  },
+  "react-native": "src/index.ts",
+  "module": "lib/module/index.js",
+  "types": "lib/typescript/index.d.ts",
+  "files": [
+    "src",
+    "lib"
+  ],
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   }
 }
