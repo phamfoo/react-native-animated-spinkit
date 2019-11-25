@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { Animated } from 'react-native'
+import { Animated, Easing } from 'react-native'
 import { SpinnerProps, defaultProps } from './SpinnerProps'
 import AnimationContainer from './AnimationContainer'
 import { anim } from './utils'
 
-export default class Plane extends React.Component<SpinnerProps> {
+export default class Pulse extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
   value = new Animated.Value(0)
 
@@ -13,7 +13,11 @@ export default class Plane extends React.Component<SpinnerProps> {
     return (
       <AnimationContainer
         animation={() =>
-          anim({ duration: 1200, value: this.value, keyframes: [0, 50, 100] })
+          anim({
+            duration: 1200,
+            value: this.value,
+            easing: Easing.bezier(0.455, 0.03, 0.515, 0.955),
+          })
         }
       >
         <Animated.View
@@ -22,20 +26,16 @@ export default class Plane extends React.Component<SpinnerProps> {
               width: size,
               height: size,
               backgroundColor: color,
+              borderRadius: size / 2,
+              opacity: this.value.interpolate({
+                inputRange: [0, 100],
+                outputRange: [1, 0],
+              }),
               transform: [
                 {
-                  perspective: size * 3,
-                },
-                {
-                  rotateX: this.value.interpolate({
-                    inputRange: [0, 50, 100],
-                    outputRange: ['0.1deg', '-179.9deg', '-179.9deg'],
-                  }),
-                },
-                {
-                  rotateY: this.value.interpolate({
-                    inputRange: [0, 50, 100],
-                    outputRange: ['0.1deg', '0.1deg', '-179.9deg'],
+                  scale: this.value.interpolate({
+                    inputRange: [0, 100],
+                    outputRange: [0.01, 1],
                   }),
                 },
               ],
