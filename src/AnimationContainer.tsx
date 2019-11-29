@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Animated } from 'react-native'
 
 export interface Props {
-  animation: () => Animated.CompositeAnimation
+  animation: Animated.CompositeAnimation
 }
 export default class AnimationContainer extends React.Component<Props> {
   animation: Animated.CompositeAnimation
@@ -11,7 +11,7 @@ export default class AnimationContainer extends React.Component<Props> {
     super(props)
 
     const { animation } = this.props
-    this.animation = animation()
+    this.animation = animation
   }
 
   componentDidMount() {

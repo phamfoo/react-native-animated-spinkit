@@ -12,9 +12,11 @@ export default class Plane extends React.Component<SpinnerProps> {
     const { size, color, style, ...rest } = this.props
     return (
       <AnimationContainer
-        animation={() =>
-          anim({ duration: 1200, value: this.value, keyframes: [0, 50, 100] })
-        }
+        animation={anim({
+          duration: 1200,
+          value: this.value,
+          keyframes: [0, 50, 100],
+        })}
       >
         <Animated.View
           style={[

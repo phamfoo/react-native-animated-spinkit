@@ -12,19 +12,17 @@ export default class Fold extends React.Component<SpinnerProps> {
     const { size, color, style, ...rest } = this.props
     return (
       <AnimationContainer
-        animation={() =>
-          Animated.parallel(
-            this.values.map((value, index) =>
-              anim({
-                duration: 2400,
-                value: value,
-                keyframes: [0, 10, 25, 75, 90, 100],
-                delay: index * 300,
-                easing: Easing.linear,
-              })
-            )
+        animation={Animated.parallel(
+          this.values.map((value, index) =>
+            anim({
+              duration: 2400,
+              value: value,
+              keyframes: [0, 10, 25, 75, 90, 100],
+              delay: index * 300,
+              easing: Easing.linear,
+            })
           )
-        }
+        )}
       >
         <View
           style={[

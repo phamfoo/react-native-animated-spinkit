@@ -21,35 +21,33 @@ export default class Chase extends React.Component<SpinnerProps> {
     }
     return (
       <AnimationContainer
-        animation={() =>
-          Animated.parallel([
-            Animated.stagger(
-              100,
-              this.chaseDotValues.map(value =>
-                anim({
-                  duration: 2000,
-                  value: value,
-                  keyframes: [0, 80, 100],
-                })
-              )
-            ),
-            Animated.stagger(
-              100,
-              this.chaseDotBeforeValues.map(value =>
-                anim({
-                  duration: 2000,
-                  value: value,
-                  keyframes: [0, 50, 100],
-                })
-              )
-            ),
-            anim({
-              duration: 2500,
-              easing: Easing.linear,
-              value: this.chase,
-            }),
-          ])
-        }
+        animation={Animated.parallel([
+          Animated.stagger(
+            100,
+            this.chaseDotValues.map(value =>
+              anim({
+                duration: 2000,
+                value: value,
+                keyframes: [0, 80, 100],
+              })
+            )
+          ),
+          Animated.stagger(
+            100,
+            this.chaseDotBeforeValues.map(value =>
+              anim({
+                duration: 2000,
+                value: value,
+                keyframes: [0, 50, 100],
+              })
+            )
+          ),
+          anim({
+            duration: 2500,
+            easing: Easing.linear,
+            value: this.chase,
+          }),
+        ])}
       >
         <Animated.View
           style={[

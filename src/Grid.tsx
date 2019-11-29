@@ -13,18 +13,16 @@ export default class Grid extends React.Component<SpinnerProps> {
     const { size, color, style, ...rest } = this.props
     return (
       <AnimationContainer
-        animation={() =>
-          Animated.parallel(
-            this.values.map((value, index) =>
-              anim({
-                duration: 1300,
-                value: value,
-                keyframes: [0, 35, 70, 100],
-                delay: delays[index],
-              })
-            )
+        animation={Animated.parallel(
+          this.values.map((value, index) =>
+            anim({
+              duration: 1300,
+              value: value,
+              keyframes: [0, 35, 70, 100],
+              delay: delays[index],
+            })
           )
-        }
+        )}
       >
         <View
           style={[

@@ -12,13 +12,11 @@ export default class Pulse extends React.Component<SpinnerProps> {
     const { size, color, style, ...rest } = this.props
     return (
       <AnimationContainer
-        animation={() =>
-          anim({
-            duration: 1200,
-            value: this.value,
-            easing: Easing.bezier(0.455, 0.03, 0.515, 0.955),
-          })
-        }
+        animation={anim({
+          duration: 1200,
+          value: this.value,
+          easing: Easing.bezier(0.455, 0.03, 0.515, 0.955),
+        })}
       >
         <Animated.View
           style={[

@@ -18,21 +18,19 @@ export default class Swing extends React.Component<SpinnerProps> {
     }
     return (
       <AnimationContainer
-        animation={() =>
-          Animated.parallel([
-            anim({
-              duration: 2000,
-              value: this.values[0],
-              keyframes: [0, 50, 100],
-            }),
-            anim({
-              duration: 1800,
-              value: this.values[1],
-              easing: Easing.linear,
-              keyframes: [0, 100],
-            }),
-          ])
-        }
+        animation={Animated.parallel([
+          anim({
+            duration: 2000,
+            value: this.values[0],
+            keyframes: [0, 50, 100],
+          }),
+          anim({
+            duration: 1800,
+            value: this.values[1],
+            easing: Easing.linear,
+            keyframes: [0, 100],
+          }),
+        ])}
       >
         <Animated.View
           style={[

@@ -13,18 +13,16 @@ export default class Wave extends React.Component<SpinnerProps> {
 
     return (
       <AnimationContainer
-        animation={() =>
-          Animated.stagger(
-            100,
-            this.values.map(value =>
-              anim({
-                duration: 1200,
-                value: value,
-                keyframes: [0, 20, 40, 100],
-              })
-            )
+        animation={Animated.stagger(
+          100,
+          this.values.map(value =>
+            anim({
+              duration: 1200,
+              value: value,
+              keyframes: [0, 20, 40, 100],
+            })
           )
-        }
+        )}
       >
         <View
           style={[

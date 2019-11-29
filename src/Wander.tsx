@@ -14,13 +14,11 @@ export default class Wander extends React.Component<SpinnerProps> {
 
     return (
       <AnimationContainer
-        animation={() =>
-          anim({
-            duration: 2000,
-            value: this.value,
-            keyframes: [0, 25, 50, 75, 100],
-          })
-        }
+        animation={anim({
+          duration: 2000,
+          value: this.value,
+          keyframes: [0, 25, 50, 75, 100],
+        })}
       >
         <View
           style={[
