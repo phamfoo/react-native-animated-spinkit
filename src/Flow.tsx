@@ -13,14 +13,14 @@ export default class Flow extends React.Component<SpinnerProps> {
 
     return (
       <AnimationContainer
-        animation={Animated.stagger(
-          150,
-          this.values.map(value =>
+        animation={Animated.parallel(
+          this.values.map((value, index) =>
             anim({
               duration: 1400,
               value: value,
               easing: Easing.bezier(0.455, 0.03, 0.515, 0.955),
               keyframes: [0, 40, 80, 100],
+              delay: index * 150,
             })
           )
         )}

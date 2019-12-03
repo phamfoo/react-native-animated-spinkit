@@ -19,13 +19,13 @@ export default class Circle extends React.Component<SpinnerProps> {
     }
     return (
       <AnimationContainer
-        animation={Animated.stagger(
-          100,
-          this.values.map(value =>
+        animation={Animated.parallel(
+          this.values.map((value, index) =>
             anim({
               duration: 1200,
               value: value,
               keyframes: [0, 40, 80, 100],
+              delay: index * 100,
             })
           )
         )}

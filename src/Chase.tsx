@@ -22,23 +22,23 @@ export default class Chase extends React.Component<SpinnerProps> {
     return (
       <AnimationContainer
         animation={Animated.parallel([
-          Animated.stagger(
-            100,
-            this.chaseDotValues.map(value =>
+          Animated.parallel(
+            this.chaseDotValues.map((value, index) =>
               anim({
                 duration: 2000,
                 value: value,
                 keyframes: [0, 80, 100],
+                delay: index * 100,
               })
             )
           ),
-          Animated.stagger(
-            100,
-            this.chaseDotBeforeValues.map(value =>
+          Animated.parallel(
+            this.chaseDotBeforeValues.map((value, index) =>
               anim({
                 duration: 2000,
                 value: value,
                 keyframes: [0, 50, 100],
+                delay: index * 100,
               })
             )
           ),

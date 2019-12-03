@@ -20,13 +20,13 @@ export default class Bounce extends React.Component<SpinnerProps> {
     }
     return (
       <AnimationContainer
-        animation={Animated.stagger(
-          1000,
-          this.values.map(value =>
+        animation={Animated.parallel(
+          this.values.map((value, index) =>
             anim({
               duration: 2000,
               value: value,
               keyframes: [0, 45, 55, 100],
+              delay: index * 1000,
             })
           )
         )}

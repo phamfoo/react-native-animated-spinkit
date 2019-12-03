@@ -19,13 +19,13 @@ export default class CircleFade extends React.Component<SpinnerProps> {
     }
     return (
       <AnimationContainer
-        animation={Animated.stagger(
-          100,
-          this.values.map(value =>
+        animation={Animated.parallel(
+          this.values.map((value, index) =>
             anim({
               duration: 1200,
               value: value,
               keyframes: [0, 39, 40, 100],
+              delay: index * 100,
             })
           )
         )}
