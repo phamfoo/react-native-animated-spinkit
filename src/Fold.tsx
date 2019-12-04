@@ -2,28 +2,31 @@ import * as React from 'react'
 import { Animated, Easing, View } from 'react-native'
 import { SpinnerProps, defaultProps } from './SpinnerProps'
 import AnimationContainer from './AnimationContainer'
-import { anim, createAnimatedValues } from './utils'
+import { stagger } from './utils'
 
 export default class Fold extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
-  values = createAnimatedValues(4)
 
+  value = new Animated.Value(0)
+  animation: Animated.CompositeAnimation
+  values: Animated.AnimatedInterpolation[]
+
+  constructor(props: SpinnerProps) {
+    super(props)
+    const { animation, values } = stagger(300, 4, {
+      duration: 2400,
+      value: this.value,
+      keyframes: [0, 10, 25, 75, 90, 100],
+      easing: Easing.linear,
+    })
+
+    this.animation = animation
+    this.values = values
+  }
   render() {
     const { size, color, style, ...rest } = this.props
     return (
-      <AnimationContainer
-        animation={Animated.parallel(
-          this.values.map((value, index) =>
-            anim({
-              duration: 2400,
-              value: value,
-              keyframes: [0, 10, 25, 75, 90, 100],
-              delay: index * 300,
-              easing: Easing.linear,
-            })
-          )
-        )}
-      >
+      <AnimationContainer animation={this.animation}>
         <View
           style={[
             {

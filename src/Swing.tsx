@@ -2,11 +2,12 @@ import * as React from 'react'
 import { Animated, Easing } from 'react-native'
 import { SpinnerProps, defaultProps } from './SpinnerProps'
 import AnimationContainer from './AnimationContainer'
-import { anim, createAnimatedValues } from './utils'
+import { anim } from './utils'
 
 export default class Swing extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
-  values = createAnimatedValues(2)
+  swing = new Animated.Value(0)
+  swingDot = new Animated.Value(0)
 
   render() {
     const { size, color, style, ...rest } = this.props
@@ -20,15 +21,15 @@ export default class Swing extends React.Component<SpinnerProps> {
       <AnimationContainer
         animation={Animated.parallel([
           anim({
-            duration: 2000,
-            value: this.values[0],
-            keyframes: [0, 50, 100],
-          }),
-          anim({
             duration: 1800,
-            value: this.values[1],
+            value: this.swing,
             easing: Easing.linear,
             keyframes: [0, 100],
+          }),
+          anim({
+            duration: 2000,
+            value: this.swingDot,
+            keyframes: [0, 50, 100],
           }),
         ])}
       >
@@ -41,7 +42,7 @@ export default class Swing extends React.Component<SpinnerProps> {
               justifyContent: 'space-between',
               transform: [
                 {
-                  rotate: this.values[1].interpolate({
+                  rotate: this.swing.interpolate({
                     inputRange: [0, 100],
                     outputRange: ['0deg', '360deg'],
                   }),
@@ -58,7 +59,7 @@ export default class Swing extends React.Component<SpinnerProps> {
               {
                 transform: [
                   {
-                    scale: this.values[0].interpolate({
+                    scale: this.swingDot.interpolate({
                       inputRange: [0, 50, 100],
                       outputRange: [0.2, 1, 0.2],
                     }),
@@ -73,7 +74,7 @@ export default class Swing extends React.Component<SpinnerProps> {
               {
                 transform: [
                   {
-                    scale: this.values[0].interpolate({
+                    scale: this.swingDot.interpolate({
                       inputRange: [0, 50, 100],
                       outputRange: [1, 0.2, 1],
                     }),

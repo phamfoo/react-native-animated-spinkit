@@ -2,13 +2,54 @@ import * as React from 'react'
 import { Animated, Easing } from 'react-native'
 import { SpinnerProps, defaultProps } from './SpinnerProps'
 import AnimationContainer from './AnimationContainer'
-import { anim, createAnimatedValues } from './utils'
+import { anim, stagger } from './utils'
 
 export default class Chase extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
-  chaseDotValues = createAnimatedValues(6)
-  chaseDotBeforeValues = createAnimatedValues(6)
+
   chase = new Animated.Value(0)
+  chaseDot = new Animated.Value(0)
+  chaseDotValues: Animated.AnimatedInterpolation[]
+  chaseDotBefore = new Animated.Value(0)
+  chaseDotBeforeValues: Animated.AnimatedInterpolation[]
+  animation: Animated.CompositeAnimation
+
+  constructor(props: SpinnerProps) {
+    super(props)
+
+    const { animation: chaseDotAnimation, values: chaseDotValues } = stagger(
+      100,
+      6,
+      {
+        duration: 2000,
+        value: this.chaseDot,
+        keyframes: [0, 80, 100],
+      }
+    )
+    this.chaseDotValues = chaseDotValues
+
+    const {
+      animation: chaseDotBeforeAnimation,
+      values: chaseDotBeforeValues,
+    } = stagger(100, 6, {
+      duration: 2000,
+      value: this.chaseDot,
+      keyframes: [0, 80, 100],
+    })
+    this.chaseDotBeforeValues = chaseDotBeforeValues
+
+    const chaseAnimation = anim({
+      duration: 2500,
+      easing: Easing.linear,
+      value: this.chase,
+    })
+
+    this.animation = Animated.parallel([
+      chaseAnimation,
+      chaseDotAnimation,
+      chaseDotBeforeAnimation,
+    ])
+  }
 
   render() {
     const { size, color, style, ...rest } = this.props
@@ -20,35 +61,7 @@ export default class Chase extends React.Component<SpinnerProps> {
       borderRadius: size / 8,
     }
     return (
-      <AnimationContainer
-        animation={Animated.parallel([
-          Animated.parallel(
-            this.chaseDotValues.map((value, index) =>
-              anim({
-                duration: 2000,
-                value: value,
-                keyframes: [0, 80, 100],
-                delay: index * 100,
-              })
-            )
-          ),
-          Animated.parallel(
-            this.chaseDotBeforeValues.map((value, index) =>
-              anim({
-                duration: 2000,
-                value: value,
-                keyframes: [0, 50, 100],
-                delay: index * 100,
-              })
-            )
-          ),
-          anim({
-            duration: 2500,
-            easing: Easing.linear,
-            value: this.chase,
-          }),
-        ])}
-      >
+      <AnimationContainer animation={this.animation}>
         <Animated.View
           style={[
             {

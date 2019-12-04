@@ -2,28 +2,40 @@ import * as React from 'react'
 import { Animated, View } from 'react-native'
 import { SpinnerProps, defaultProps } from './SpinnerProps'
 import AnimationContainer from './AnimationContainer'
-import { anim, createAnimatedValues } from './utils'
+import { stagger } from './utils'
 
-const delays = [200, 300, 400, 100, 200, 300, 0, 100, 200]
 export default class Grid extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
-  values = createAnimatedValues(9)
 
+  value = new Animated.Value(0)
+  animation: Animated.CompositeAnimation
+  values: Animated.AnimatedInterpolation[]
+
+  constructor(props: SpinnerProps) {
+    super(props)
+    const { animation, values } = stagger(100, 5, {
+      duration: 1300,
+      value: this.value,
+      keyframes: [0, 35, 70, 100],
+    })
+
+    this.animation = animation
+    this.values = [
+      values[2],
+      values[3],
+      values[4],
+      values[1],
+      values[2],
+      values[3],
+      values[0],
+      values[1],
+      values[2],
+    ]
+  }
   render() {
     const { size, color, style, ...rest } = this.props
     return (
-      <AnimationContainer
-        animation={Animated.parallel(
-          this.values.map((value, index) =>
-            anim({
-              duration: 1300,
-              value: value,
-              keyframes: [0, 35, 70, 100],
-              delay: delays[index],
-            })
-          )
-        )}
-      >
+      <AnimationContainer animation={this.animation}>
         <View
           style={[
             {

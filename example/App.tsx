@@ -34,7 +34,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
-      {Array(Math.round(spinners.length / 3))
+      {Array(Math.ceil(spinners.length / 3))
         .fill(null)
         .map((_, rowIndex) => (
           <View key={rowIndex} style={styles.row}>
