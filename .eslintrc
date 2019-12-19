@@ -37,6 +37,15 @@
         "@typescript-eslint/no-inferrable-types": [
           "error",
           { "ignoreParameters": true }
+        ],
+        "@typescript-eslint/no-use-before-define": [
+          "warn",
+          {
+            "functions": false,
+            "classes": false,
+            "variables": false,
+            "typedefs": false
+          }
         ]
       }
     }
