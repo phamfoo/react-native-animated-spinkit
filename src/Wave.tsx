@@ -7,57 +7,62 @@ import { stagger } from './utils'
 export default class Wave extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
 
-  value = new Animated.Value(0)
-  animation: Animated.CompositeAnimation
-  values: Animated.AnimatedInterpolation[]
-
-  constructor(props: SpinnerProps) {
-    super(props)
-    const { animation, values } = stagger(100, 5, {
-      duration: 1200,
-      value: this.value,
-      keyframes: [0, 20, 40, 100],
-    })
-
-    this.animation = animation
-    this.values = values
-  }
   render() {
-    const { size, color, style, ...rest } = this.props
+    const {
+      size,
+      color,
+      style,
+      animating,
+      hidesWhenStopped,
+      ...rest
+    } = this.props
 
     return (
-      <AnimationContainer animation={this.animation}>
-        <View
-          style={[
-            {
-              width: size,
-              height: size,
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-            },
-            style,
-          ]}
-          {...rest}
-        >
-          {this.values.map((value, index) => (
-            <Animated.View
-              key={index}
-              style={{
-                width: size * 0.15,
-                backgroundColor: color,
+      <AnimationContainer<'wave'>
+        initAnimation={() => ({
+          wave: (value) =>
+            stagger(100, 5, {
+              duration: 1200,
+              value: value,
+              keyframes: [0, 20, 40, 100],
+            }),
+        })}
+        animating={animating}
+      >
+        {(values) => (
+          <View
+            style={[
+              {
+                width: size,
                 height: size,
-                transform: [
-                  {
-                    scaleY: value.interpolate({
-                      inputRange: [0, 20, 40, 100],
-                      outputRange: [0.4, 1, 0.4, 0.4],
-                    }),
-                  },
-                ],
-              }}
-            />
-          ))}
-        </View>
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                opacity: !animating && hidesWhenStopped ? 0 : 1,
+              },
+              style,
+            ]}
+            {...rest}
+          >
+            {values.wave.map((value, index) => (
+              <Animated.View
+                key={index}
+                style={{
+                  width: size * 0.15,
+                  backgroundColor: color,
+                  height: size,
+                  transform: [
+                    {
+                      scaleY: value.interpolate({
+                        inputRange: [0, 20, 40, 100],
+                        outputRange: [0.4, 1, 0.4, 0.4],
+                      }),
+                    },
+                  ],
+                }}
+              />
+            ))}
+          </View>
+        )}
       </AnimationContainer>
     )
   }

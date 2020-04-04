@@ -1,5 +1,11 @@
-import React from 'react'
-import { View, StatusBar, Text, StyleSheet } from 'react-native'
+import React, { useReducer } from 'react'
+import {
+  View,
+  StatusBar,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native'
 import {
   Plane,
   Chase,
@@ -30,7 +36,23 @@ const spinners = [
   { component: Fold, backgroundColor: '#2980b9' },
 ]
 
+function reducer(state, action) {
+  switch (action.type) {
+    case 'toggle_loading':
+      return { ...state, [action.spinnerIndex]: !state[action.spinnerIndex] }
+    default:
+      return state
+  }
+}
+
+const initialState = spinners.reduce(
+  (acc, _, index) => ({ ...acc, [index]: true }),
+  {}
+)
+
 export default function App() {
+  const [state, dispatch] = useReducer(reducer, initialState)
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -42,8 +64,9 @@ export default function App() {
               .slice(rowIndex * 3, rowIndex * 3 + 3)
               .map((spinner, index) => {
                 const Spinner = spinner.component
+                const spinnerIndex = rowIndex * 3 + index
                 return (
-                  <View
+                  <TouchableOpacity
                     style={[
                       styles.cell,
                       {
@@ -51,12 +74,18 @@ export default function App() {
                       },
                     ]}
                     key={index}
+                    onPress={() => {
+                      dispatch({
+                        type: 'toggle_loading',
+                        spinnerIndex: spinnerIndex,
+                      })
+                    }}
                   >
-                    <Spinner color="#FFF" />
+                    <Spinner color="#FFF" animating={state[spinnerIndex]} />
                     <Text style={styles.componentLabel}>
-                      {`<${spinner.component.name} \/>`}
+                      {`<${spinner.component.name} />`}
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                 )
               })}
           </View>

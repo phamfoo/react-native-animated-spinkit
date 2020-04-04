@@ -7,24 +7,15 @@ import { stagger } from './utils'
 export default class CircleFade extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
 
-  value = new Animated.Value(0)
-  animation: Animated.CompositeAnimation
-  values: Animated.AnimatedInterpolation[]
-
-  constructor(props: SpinnerProps) {
-    super(props)
-    const { animation, values } = stagger(100, 12, {
-      duration: 1200,
-      value: this.value,
-      keyframes: [0, 39, 40, 100],
-    })
-
-    this.animation = animation
-    this.values = values
-  }
-
   render() {
-    const { size, color, style, ...rest } = this.props
+    const {
+      size,
+      color,
+      style,
+      animating,
+      hidesWhenStopped,
+      ...rest
+    } = this.props
     const circleStyle = {
       position: 'absolute',
       width: size * 0.15,
@@ -32,47 +23,61 @@ export default class CircleFade extends React.Component<SpinnerProps> {
       backgroundColor: color,
       borderRadius: (size * 0.15) / 2,
     }
+
     return (
-      <AnimationContainer animation={this.animation}>
-        <View
-          style={[
-            {
-              width: size,
-              height: size,
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-            style,
-          ]}
-          {...rest}
-        >
-          {this.values.map((value, index) => (
-            <Animated.View
-              key={index}
-              style={[
-                circleStyle,
-                {
-                  opacity: value.interpolate({
-                    inputRange: [0, 39, 40, 100],
-                    outputRange: [0, 0, 1, 0],
-                  }),
-                  transform: [
-                    {
-                      rotate: `${index * 30}deg`,
-                    },
-                    { translateY: -size / 2 + (size * 0.15) / 2 },
-                    {
-                      scale: value.interpolate({
-                        inputRange: [0, 39, 40, 100],
-                        outputRange: [0.6, 0.6, 1, 0.6],
-                      }),
-                    },
-                  ],
-                },
-              ]}
-            />
-          ))}
-        </View>
+      <AnimationContainer<'circleFade'>
+        initAnimation={() => ({
+          circleFade: (value) =>
+            stagger(100, 12, {
+              duration: 1200,
+              value: value,
+              keyframes: [0, 39, 40, 100],
+            }),
+        })}
+        animating={animating}
+      >
+        {(values) => (
+          <View
+            style={[
+              {
+                width: size,
+                height: size,
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: !animating && hidesWhenStopped ? 0 : 1,
+              },
+              style,
+            ]}
+            {...rest}
+          >
+            {values.circleFade.map((value, index) => (
+              <Animated.View
+                key={index}
+                style={[
+                  circleStyle,
+                  {
+                    opacity: value.interpolate({
+                      inputRange: [0, 39, 40, 100],
+                      outputRange: [0, 0, 1, 0],
+                    }),
+                    transform: [
+                      {
+                        rotate: `${index * 30}deg`,
+                      },
+                      { translateY: -size / 2 + (size * 0.15) / 2 },
+                      {
+                        scale: value.interpolate({
+                          inputRange: [0, 39, 40, 100],
+                          outputRange: [0.6, 0.6, 1, 0.6],
+                        }),
+                      },
+                    ],
+                  },
+                ]}
+              />
+            ))}
+          </View>
+        )}
       </AnimationContainer>
     )
   }
