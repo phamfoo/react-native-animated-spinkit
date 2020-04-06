@@ -58,7 +58,6 @@ export default class Plane extends React.Component<SpinnerProps> {
                 ],
               },
               style,
-              { display: 'hidden' },
             ]}
             {...rest}
           />
