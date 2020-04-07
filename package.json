@@ -13,9 +13,8 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "yarn format",
-      "yarn lint",
-      "git add"
+      "eslint --fix",
+      "prettier --write"
     ]
   },
   "husky": {
@@ -35,15 +34,15 @@
     "url": "https://github.com/tienph6m/react-native-animated-spinkit.git"
   },
   "devDependencies": {
-    "@react-native-community/bob": "^0.7.0",
+    "@react-native-community/bob": "^0.10.0",
     "@types/react": "^16.9.13",
-    "@types/react-native": "^0.60.23",
+    "@types/react-native": "^0.61.3",
     "eslint": "^6.8.0",
     "eslint-config-tienph6m": "^0.2.0",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.4.3",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.2",
     "prettier": "^2.0.2",
-    "typescript": "^3.7.2"
+    "typescript": "^3.8.3"
   },
   "peerDependencies": {
     "react": "*",
