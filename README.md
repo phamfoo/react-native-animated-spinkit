@@ -44,25 +44,25 @@ Inherits [View Props](https://facebook.github.io/react-native/docs/view#props)
 
 ### size
 
-> `?number` | defaults to `48`
+> `number` | defaults to `48`
 
 Width and height of the spinner.
 
 ### color
 
-> `?string` | defaults to `#000`
+> `string` | defaults to `#000`
 
 Color of the spinner.
 
 ### animating
 
-> `?boolean` | defaults to `true`
+> `boolean` | defaults to `true`
 
 Whether to show the indicator or hide it.
 
 ### hidesWhenStopped
 
-> `?boolean` | defaults to `true`
+> `boolean` | defaults to `true`
 
 Whether the indicator should hide when not animating.
 
