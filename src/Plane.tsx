@@ -18,7 +18,7 @@ export default class Plane extends React.Component<SpinnerProps> {
     } = this.props
 
     return (
-      <AnimationContainer<'plane'>
+      <AnimationContainer
         initAnimation={() => ({
           plane: (value) => ({
             values: [value],

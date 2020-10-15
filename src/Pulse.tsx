@@ -18,7 +18,7 @@ export default class Pulse extends React.Component<SpinnerProps> {
     } = this.props
 
     return (
-      <AnimationContainer<'pulse'>
+      <AnimationContainer
         initAnimation={() => ({
           pulse: (value) => ({
             values: [value],

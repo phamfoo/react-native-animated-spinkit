@@ -19,7 +19,7 @@ export default class Wander extends React.Component<SpinnerProps> {
     const wanderDistance = size * 0.75
 
     return (
-      <AnimationContainer<'wander'>
+      <AnimationContainer
         initAnimation={() => ({
           wander: (value) => ({
             values: [value],

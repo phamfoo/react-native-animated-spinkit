@@ -25,7 +25,7 @@ export default class Circle extends React.Component<SpinnerProps> {
     }
 
     return (
-      <AnimationContainer<'circle'>
+      <AnimationContainer
         initAnimation={() => ({
           circle: (value) =>
             stagger(100, 12, {

@@ -18,7 +18,7 @@ export default class Wave extends React.Component<SpinnerProps> {
     } = this.props
 
     return (
-      <AnimationContainer<'wave'>
+      <AnimationContainer
         initAnimation={() => ({
           wave: (value) =>
             stagger(100, 5, {

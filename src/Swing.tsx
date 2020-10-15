@@ -24,7 +24,7 @@ export default class Swing extends React.Component<SpinnerProps> {
     }
 
     return (
-      <AnimationContainer<'swing' | 'swingDot'>
+      <AnimationContainer
         initAnimation={() => ({
           swing: (value) => ({
             values: [value],

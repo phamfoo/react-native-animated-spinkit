@@ -25,7 +25,7 @@ export default class CircleFade extends React.Component<SpinnerProps> {
     }
 
     return (
-      <AnimationContainer<'circleFade'>
+      <AnimationContainer
         initAnimation={() => ({
           circleFade: (value) =>
             stagger(100, 12, {

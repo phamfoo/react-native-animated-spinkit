@@ -19,7 +19,7 @@ export default class Grid extends React.Component<SpinnerProps> {
     } = this.props
 
     return (
-      <AnimationContainer<'grid'>
+      <AnimationContainer
         initAnimation={() => ({
           grid: (value) =>
             stagger(100, 5, {

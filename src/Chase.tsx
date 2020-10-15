@@ -25,7 +25,7 @@ export default class Chase extends React.Component<SpinnerProps> {
     }
 
     return (
-      <AnimationContainer<'chase' | 'chaseDot' | 'chaseDotBefore'>
+      <AnimationContainer
         initAnimation={() => ({
           chase: (value) => ({
             values: [value],

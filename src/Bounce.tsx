@@ -26,7 +26,7 @@ export default class Bounce extends React.Component<SpinnerProps> {
     }
 
     return (
-      <AnimationContainer<'bounce'>
+      <AnimationContainer
         initAnimation={() => ({
           bounce: (value) =>
             stagger(1000, 2, {

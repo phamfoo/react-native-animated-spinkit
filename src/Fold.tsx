@@ -18,7 +18,7 @@ export default class Fold extends React.Component<SpinnerProps> {
     } = this.props
 
     return (
-      <AnimationContainer<'fold'>
+      <AnimationContainer
         initAnimation={() => ({
           fold: (value) =>
             stagger(300, 4, {

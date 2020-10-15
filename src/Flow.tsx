@@ -18,7 +18,7 @@ export default class Flow extends React.Component<SpinnerProps> {
     } = this.props
 
     return (
-      <AnimationContainer<'flow'>
+      <AnimationContainer
         initAnimation={() => ({
           flow: (value) =>
             stagger(150, 3, {
