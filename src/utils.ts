@@ -1,4 +1,4 @@
-import { EasingFunction, Easing, Animated } from 'react-native'
+import { EasingFunction, Easing, Animated, Platform } from 'react-native'
 
 export function createKeyframeEasingFunction(
   keyframes: number[],
@@ -45,7 +45,7 @@ export function anim({
     duration: duration,
     easing: createKeyframeEasingFunction(keyframes, easing),
     toValue: toValue,
-    useNativeDriver: true,
+    useNativeDriver: Platform.OS !== 'web',
     delay: delay,
   })
   return infinite ? Animated.loop(timing) : timing
@@ -66,6 +66,28 @@ export function stagger(
     delay = 0,
   } = animationConfig
   const easingFunction = createKeyframeEasingFunction(keyframes, easing)
+
+  if (Platform.OS === 'web') {
+    const values = new Array(amount)
+      .fill(null)
+      .map((_) => new Animated.Value(0))
+
+    const animations = values.map((value) =>
+      anim({
+        value,
+        duration,
+        easing,
+        toValue,
+        keyframes,
+        infinite,
+      })
+    )
+
+    const animation = Animated.stagger(time, animations)
+
+    return { animation, values }
+  }
+
   const timing = Animated.timing(value, {
     duration: duration,
     easing: easingFunction,
@@ -73,7 +95,6 @@ export function stagger(
     useNativeDriver: true,
     delay: delay,
   })
-
   const animation = infinite ? Animated.loop(timing) : timing
 
   // React Native only does 60fps

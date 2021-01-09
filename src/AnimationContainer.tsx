@@ -75,7 +75,7 @@ export default class AnimationContainer<
   }
 
   stopAnimation = () => {
-    this.animation.stop()
+    this.animation.reset()
 
     for (const key in this.animatedValuesByKey) {
       this.animatedValuesByKey[key].setValue(0)
