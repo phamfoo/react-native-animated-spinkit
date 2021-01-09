@@ -8,6 +8,7 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "strict": true,
     "paths": {
       "react-native-animated-spinkit": ["../src/index"]
     }

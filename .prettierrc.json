@@ -3,5 +3,6 @@
   "tabWidth": 2,
   "trailingComma": "es5",
   "useTabs": false,
-  "semi": false
+  "semi": false,
+  "quoteProps": "consistent"
 }

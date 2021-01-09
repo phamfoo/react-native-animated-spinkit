@@ -5,23 +5,41 @@
   "author": "Tien Pham",
   "main": "lib/commonjs/index.js",
   "license": "MIT",
+  "source": "src/index.ts",
+  "react-native": "src/index.ts",
+  "module": "lib/module/index.js",
+  "types": "lib/typescript/index.d.ts",
   "scripts": {
-    "example": "yarn --cwd ./example",
-    "lint": "eslint \"src/**/*.{ts,tsx}\"",
-    "format": "prettier --write 'src/**/*' 'README.md'",
-    "prepare": "bob build"
+    "prepare": "bob build",
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable",
+    "lint": "tsc --noEmit && eslint src --ext ts,tsx"
   },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "devDependencies": {
+    "@types/react": "^16.9.19",
+    "@types/react-native": "0.62.13",
+    "eslint": "^7.16.0",
+    "eslint-config-tienphaw": "^1.4.0",
+    "husky": "^5.0.6",
+    "pinst": "^2.1.1",
+    "prettier": "^2.2.1",
+    "react": "16.13.1",
+    "react-native": "0.63.4",
+    "react-native-builder-bob": "^0.17.1",
+    "typescript": "^4.1.3"
   },
+  "files": [
+    "src",
+    "lib",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
   "keywords": [
     "react",
     "react-native",
@@ -33,29 +51,7 @@
     "type": "git",
     "url": "https://github.com/tienphaw/react-native-animated-spinkit.git"
   },
-  "devDependencies": {
-    "@react-native-community/bob": "^0.10.0",
-    "@types/react": "^16.9.13",
-    "@types/react-native": "^0.61.3",
-    "eslint": "^6.8.0",
-    "eslint-config-tienph6m": "^0.2.0",
-    "husky": "^4.2.3",
-    "lint-staged": "^10.1.2",
-    "prettier": "^2.0.2",
-    "typescript": "^3.8.3"
-  },
-  "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
-  },
-  "react-native": "src/index.ts",
-  "module": "lib/module/index.js",
-  "types": "lib/typescript/index.d.ts",
-  "files": [
-    "src",
-    "lib"
-  ],
-  "@react-native-community/bob": {
+  "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
     "targets": [
