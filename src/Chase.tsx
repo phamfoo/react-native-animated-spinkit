@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Animated, Easing } from 'react-native'
 import { SpinnerProps, defaultProps } from './SpinnerProps'
 import AnimationContainer from './AnimationContainer'
-import { anim, stagger } from './utils'
+import { loop, stagger } from './utils'
 
 export default class Chase extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
@@ -29,7 +29,7 @@ export default class Chase extends React.Component<SpinnerProps> {
         initAnimation={() => ({
           chase: (value) => ({
             values: [value],
-            animation: anim({
+            animation: loop({
               duration: 2500,
               easing: Easing.linear,
               value: value,

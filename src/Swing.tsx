@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Animated, Easing } from 'react-native'
 import { SpinnerProps, defaultProps } from './SpinnerProps'
 import AnimationContainer from './AnimationContainer'
-import { anim } from './utils'
+import { loop } from './utils'
 
 export default class Swing extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
@@ -28,7 +28,7 @@ export default class Swing extends React.Component<SpinnerProps> {
         initAnimation={() => ({
           swing: (value) => ({
             values: [value],
-            animation: anim({
+            animation: loop({
               duration: 1800,
               value: value,
               easing: Easing.linear,
@@ -37,7 +37,7 @@ export default class Swing extends React.Component<SpinnerProps> {
           }),
           swingDot: (value) => ({
             values: [value],
-            animation: anim({
+            animation: loop({
               duration: 2000,
               value: value,
               keyframes: [0, 50, 100],

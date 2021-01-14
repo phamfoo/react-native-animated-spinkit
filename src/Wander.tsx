@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Animated, View } from 'react-native'
 import { SpinnerProps, defaultProps } from './SpinnerProps'
 import AnimationContainer from './AnimationContainer'
-import { anim } from './utils'
+import { loop } from './utils'
 
 export default class Wander extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
@@ -23,7 +23,7 @@ export default class Wander extends React.Component<SpinnerProps> {
         initAnimation={() => ({
           wander: (value) => ({
             values: [value],
-            animation: anim({
+            animation: loop({
               duration: 2000,
               value: value,
               keyframes: [0, 25, 50, 75, 100],

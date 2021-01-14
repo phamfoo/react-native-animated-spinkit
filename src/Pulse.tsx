@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Animated, Easing } from 'react-native'
 import { SpinnerProps, defaultProps } from './SpinnerProps'
 import AnimationContainer from './AnimationContainer'
-import { anim } from './utils'
+import { loop } from './utils'
 
 export default class Pulse extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
@@ -22,7 +22,7 @@ export default class Pulse extends React.Component<SpinnerProps> {
         initAnimation={() => ({
           pulse: (value) => ({
             values: [value],
-            animation: anim({
+            animation: loop({
               duration: 1200,
               value: value,
               easing: Easing.bezier(0.455, 0.03, 0.515, 0.955),

@@ -1,6 +1,6 @@
 import { EasingFunction, Easing, Animated, Platform } from 'react-native'
 
-export function createKeyframeEasingFunction(
+function createKeyframeEasingFunction(
   keyframes: number[],
   easing: EasingFunction
 ) {
@@ -22,36 +22,32 @@ export function createKeyframeEasingFunction(
   }
 }
 
-export interface AnimationConfig {
+interface AnimationConfig {
   duration: number
   value: Animated.Value
   keyframes?: number[]
   toValue?: number
   easing?: EasingFunction
-  infinite?: boolean
-  delay?: number
 }
 
-export function anim({
+function loop({
   duration,
   value,
   keyframes = [0, 100],
   easing = Easing.bezier(0.42, 0.0, 0.58, 1.0),
   toValue = 100,
-  infinite = true,
-  delay = 0,
 }: AnimationConfig) {
   const timing = Animated.timing(value, {
     duration: duration,
     easing: createKeyframeEasingFunction(keyframes, easing),
     toValue: toValue,
     useNativeDriver: Platform.OS !== 'web',
-    delay: delay,
   })
-  return infinite ? Animated.loop(timing) : timing
+
+  return Animated.loop(timing)
 }
 
-export function stagger(
+function stagger(
   time: number,
   amount: number,
   animationConfig: AnimationConfig
@@ -62,8 +58,6 @@ export function stagger(
     keyframes = [0, 100],
     easing = Easing.bezier(0.42, 0.0, 0.58, 1.0),
     toValue = 100,
-    infinite = true,
-    delay = 0,
   } = animationConfig
   const easingFunction = createKeyframeEasingFunction(keyframes, easing)
 
@@ -73,13 +67,12 @@ export function stagger(
       .map((_) => new Animated.Value(0))
 
     const animations = values.map((value) =>
-      anim({
+      loop({
         value,
         duration,
         easing,
         toValue,
         keyframes,
-        infinite,
       })
     )
 
@@ -93,9 +86,9 @@ export function stagger(
     easing: easingFunction,
     toValue: toValue,
     useNativeDriver: true,
-    delay: delay,
   })
-  const animation = infinite ? Animated.loop(timing) : timing
+
+  const animation = Animated.loop(timing)
 
   // React Native only does 60fps
   // https://github.com/facebook/react-native/blob/d3980dceab90b118cc7f69696967aa7f8d4388d9/Libraries/Animated/src/animations/TimingAnimation.js#L78
@@ -125,3 +118,5 @@ export function stagger(
 
   return { animation, values }
 }
+
+export { loop, stagger, AnimationConfig }

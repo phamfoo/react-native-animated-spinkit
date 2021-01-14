@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Animated } from 'react-native'
 import { SpinnerProps, defaultProps } from './SpinnerProps'
 import AnimationContainer from './AnimationContainer'
-import { anim } from './utils'
+import { loop } from './utils'
 
 export default class Plane extends React.Component<SpinnerProps> {
   static defaultProps = defaultProps
@@ -22,7 +22,7 @@ export default class Plane extends React.Component<SpinnerProps> {
         initAnimation={() => ({
           plane: (value) => ({
             values: [value],
-            animation: anim({
+            animation: loop({
               duration: 1200,
               value: value,
               keyframes: [0, 50, 100],
