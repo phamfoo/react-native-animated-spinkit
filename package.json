@@ -1,7 +1,7 @@
 {
   "name": "react-native-animated-spinkit",
   "description": "A pure JavaScript port of SpinKit for React Native.",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "author": "Tien Pham",
   "main": "lib/commonjs/index.js",
   "license": "MIT",
