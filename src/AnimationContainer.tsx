@@ -55,7 +55,9 @@ export default class AnimationContainer<
   }
 
   componentDidMount() {
-    this.startAnimation()
+    if (this.props.animating) {
+      this.startAnimation()
+    }
   }
 
   componentDidUpdate(prevProps: Props<T>) {
