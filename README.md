@@ -32,7 +32,7 @@ import { Plane } from 'react-native-animated-spinkit'
 function App() {
   return (
     <View style={styles.container}>
-      <Plane size={48} color="#FFF">
+      <Plane size={48} color="#FFF" />
     </View>
   )
 }
